@@ -206,6 +206,26 @@ header{
   font-weight: 700;
 }
 
+@media (max-width: 768px) {
+    main,
+    main.menu-toggle {
+        width: 100%;
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .barra {
+        width: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .barra.menu-toggle {
+        width: 10rem;
+        padding: 1rem;
+    }
+}
+
 /* Responsive*/
 @media(max-width:500px){
     .barra{
