@@ -1,0 +1,51 @@
+
+
+<h1 class="titulo-pagina"> Listado de consultas</h1>
+
+<input 
+    #inputBusqueda 
+    type="text"
+    class="buscador"
+    placeholder="Buscar solicitudes por Asunto o Descripción..."
+    (input)="busqueda.set(inputBusqueda.value)"
+    (input)="busquedaBody.set(inputBusqueda.value)"/>
+     
+@if (cargando()) {
+    <p class="estado-carga"> Cargando solicitudes desde el servidor</p>
+}
+
+@if (error()) {
+    <p class="estado-error">{{ error() }}</p>
+}
+
+@if (!cargando() && !error()) {
+<div class="grid">
+
+    
+    <div class="identificador">
+    <h4>Caso #</h4>
+    <h4>Asunto</h4>
+    <h4>Descripción</h4>
+    <h4>Prioridad</h4>
+    
+</div>
+
+    @for (s of solicitudesFiltradas(); track s.id) {
+   
+    <a [routerLink]="['/solicitudes',s.id]" class="card-link">
+        <app-solicitud-card
+          class="solicitud-card-listado"
+          [title] ="s.title"
+          [body]="s.body"
+          [maxDescriptionLength]="30"
+          [mostrarFecha]="false"
+          [id]="s.id"
+          [esPrioritario]="esPrioritario(s.id)"
+          (prioritarioCambiado)="alternarPrioritario(s.id)">
+        </app-solicitud-card>
+    </a>
+}@empty {
+    <p class="sin-resultado"> No se encontraron Solicitudes bajo este Asunto.</p>
+}
+</div>
+}

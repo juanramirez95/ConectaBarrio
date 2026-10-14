@@ -1,0 +1,34 @@
+<h1 class="titulo-pagina">Listado de Líderes</h1>
+
+
+<input 
+    #inputBusqueda 
+    type="text"
+    class="buscador"
+    placeholder="Buscar Lider por nombre"
+    (input)="busquedaLider.set(inputBusqueda.value)"/>
+
+
+  
+  @if (cargando()) {
+    <p class="estado-carga"> Cargando solicitudes desde el servidor</p>
+}
+
+@if (error()) {
+    <p class="estado-error">{{ error() }}</p>
+}
+
+@if (!cargando() && !error()) {
+<div class="grid">
+  @for (l of lideresFiltrados(); track l.id) {
+      <div class="card">
+        <h2 class="card-titulo">{{ l.name }}</h2>
+        <p class="card-detalle"><strong>Email:</strong> {{ l.email }}</p>
+        <p class="card-detalle"><strong>Teléfono:</strong> {{ l.phone }}</p>
+        <p class="card-detalle"><strong>Ciudad:</strong> {{ l.addressCity }}</p>
+      </div>
+  }@empty {
+    <p class="mensaje"> No existe un Lider registrado bajo este ID.</p>
+  }
+</div>
+}
